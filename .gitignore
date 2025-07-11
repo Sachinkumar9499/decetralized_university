@@ -1,0 +1,14 @@
+# Node dependencies
+node_modules
+
+# Internet Computer artifacts
+.dfx
+*.wasm
+
+# Environment variables
+.env
+
+# Build outputs
+dist
+build
+out
