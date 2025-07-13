@@ -1,0 +1,8 @@
+service : {
+  register_student: (text, text) -> ();
+  create_course: (text, text) -> ();
+  issue_certificate: (text, text) -> ();
+  get_certificate: (text) -> (text);
+  get_all_students: () -> (vec record { text; text });
+  get_all_courses: () -> (vec record { text; text });
+};
