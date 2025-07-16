@@ -12,6 +12,7 @@ use std::cell::RefCell;
 struct Student {
     id: String,
     name: String,
+    email: String,
 }
 
 #[derive(Clone, Debug, CandidType, Serialize, Deserialize)]
@@ -31,12 +32,13 @@ thread_local! {
     static UNIVERSITY: RefCell<University> = RefCell::new(University::default());
 }
 
-#[update(name = "registerStudent")]
-fn register_student(name: String) {
+#[update]
+fn register_student(name: String, email: String) {
     let caller_id = caller();
     let student = Student {
         id: caller_id.to_text(),
         name,
+        email, 
     };
 
     UNIVERSITY.with(|u| {
@@ -44,7 +46,7 @@ fn register_student(name: String) {
     });
 }
 
-#[update(name = "create_course")]
+#[update(name = "createCourse")]
 fn create_course(name: String, description: String) {
     let course = Course { name: name.clone(), description };
     UNIVERSITY.with(|u| {

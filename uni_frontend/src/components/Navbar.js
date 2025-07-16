@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav style={{ padding: "10px", background: "#f0f0f0" }}>
-      <Link to="/" style={{ marginRight: "15px" }}>Home</Link>
-      <Link to="/register" style={{ marginRight: "15px" }}>Register</Link>
-      <Link to="/create-course" style={{ marginRight: "15px" }}>Create Course</Link>
-      <Link to="/certificate">Issue Certificate</Link>
-       <Link to="/dashboard">Dashboard</Link> {/* ✅ Dashboard*/}
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <Link className="navbar-brand" to="/"> Home</Link>
+      <div className="collapse navbar-collapse">
+        <ul className="navbar-nav ms-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/login">Login</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/dashboard">Dashboard</Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 }

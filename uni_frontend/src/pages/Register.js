@@ -26,6 +26,7 @@ const Register = () => {
   const fetchStudents = async () => {
     try {
       const allStudents = await backend_backend.get_all_students();
+      console.log("Fetched students:", allStudents); // helpful debug
       setStudents(allStudents);
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -54,9 +55,9 @@ const Register = () => {
       <button onClick={fetchStudents}>Show All Students</button>
       <ul style={{ marginTop: "20px" }}>
         {students.length === 0 && <p>No students found yet.</p>}
-        {students.map(([name, email], idx) => (
+        {students.map((student, idx) => (
           <li key={idx}>
-            <strong>{name}</strong>: {email}
+            <strong>{student.name}</strong>: {student.email}
           </li>
         ))}
       </ul>
@@ -65,4 +66,3 @@ const Register = () => {
 };
 
 export default Register;
-

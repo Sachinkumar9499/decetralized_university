@@ -7,7 +7,7 @@ export default function CourseCreation() {
 
   const handleCreateCourse = async () => {
     try {
-      await backend_backend.create_course(courseName, courseDescription);
+      await backend_backend.createCourse(courseName, description);
       alert("Course created successfully!");
     } catch (error) {
       console.error("❌ Error creating course:", error);

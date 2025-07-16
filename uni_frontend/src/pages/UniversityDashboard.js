@@ -1,57 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { backend_backend } from "../declarations/backend_backend";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function UniversityDashboard() {
-  const [courses, setCourses] = useState([]);
-  const [students, setStudents] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const fetchedCourses = await backend_backend.get_all_courses();
-        const fetchedStudents = await backend_backend.get_all_students();
-        setCourses(fetchedCourses);
-        setStudents(fetchedStudents);
-      } catch (error) {
-        console.error("Error fetching data from backend:", error);
-      }
-    }
-    fetchData();
-  }, []);
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🏛️ ICP University Dashboard</h1>
+    <div className="container py-5">
+      <h1 className="text-center mb-4">🎓 ICP University Dashboard</h1>
 
-      <section>
-        <h2>📚 All Courses</h2>
-        {courses.length === 0 ? (
-          <p>No courses found.</p>
-        ) : (
-          <ul>
-            {courses.map((course, index) => (
-              <li key={index}>
-                <strong>{course.name}</strong>: {course.description}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      <div className="row g-4">
+        {/* Student Registration */}
+        <div className="col-md-4">
+          <div className="card h-100 shadow text-center">
+            <div className="card-body">
+              <h5 className="card-title">👨‍🎓 Register Student</h5>
+              <p className="card-text">Create a new student identity on the blockchain.</p>
+              <Link to="/register" className="btn btn-primary">Go to Registration</Link>
+            </div>
+          </div>
+        </div>
 
-      <section>
-        <h2>🧑‍🎓 Registered Students</h2>
-        {students.length === 0 ? (
-          <p>No students registered yet.</p>
-        ) : (
-          <ul>
-            {students.map((student, index) => (
-              <li key={index}>
-                <strong>{student.name}</strong> ({student.email})
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+        {/* Certificate Issuer */}
+        <div className="col-md-4">
+          <div className="card h-100 shadow text-center">
+            <div className="card-body">
+              <h5 className="card-title">📜 Issue Certificate</h5>
+              <p className="card-text">Generate and assign certificates to students.</p>
+              <Link to="/certificate" className="btn btn-success">Issue Certificate</Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Course Creation */}
+        <div className="col-md-4">
+          <div className="card h-100 shadow text-center">
+            <div className="card-body">
+              <h5 className="card-title">📘 Create Course</h5>
+              <p className="card-text">Define and add new academic courses to the portal.</p>
+              <Link to="/create-course" className="btn btn-info text-white">Create Course</Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,9 +1,16 @@
 import { Actor, HttpAgent } from "@dfinity/agent";
+
+// Imports and re-exports candid interface
 import { idlFactory } from "./backend_backend.did.js";
 export { idlFactory } from "./backend_backend.did.js";
 
-// Use env variable or fallback to local canister ID
-export const canisterId = process.env.CANISTER_ID_BACKEND_BACKEND || "uxrrr-q7777-77774-qaaaq-cai";
+/* CANISTER_ID is replaced by webpack based on node environment
+ * Note: canister environment variable will be standardized as
+ * process.env.CANISTER_ID_<CANISTER_NAME_UPPERCASE>
+ * beginning in dfx 0.15.0
+ */
+export const canisterId =
+  process.env.CANISTER_ID_BACKEND_BACKEND;
 
 export const createActor = (canisterId, options = {}) => {
   const agent = options.agent || new HttpAgent({ ...options.agentOptions });
@@ -14,13 +21,17 @@ export const createActor = (canisterId, options = {}) => {
     );
   }
 
+  // Fetch root key for certificate validation during development
   if (process.env.DFX_NETWORK !== "ic") {
     agent.fetchRootKey().catch((err) => {
-      console.warn("Unable to fetch root key. Is the local replica running?");
+      console.warn(
+        "Unable to fetch root key. Check to ensure that your local replica is running"
+      );
       console.error(err);
     });
   }
 
+  // Creates an actor with using the candid interface and the HttpAgent
   return Actor.createActor(idlFactory, {
     agent,
     canisterId,
@@ -28,5 +39,4 @@ export const createActor = (canisterId, options = {}) => {
   });
 };
 
-// ✅ This is now ESLint-safe
-export const backend_backend = createActor(canisterId);
+export const backend_backend = canisterId ? createActor(canisterId) : undefined;

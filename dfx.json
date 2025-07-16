@@ -2,16 +2,13 @@
   "canisters": {
    "backend_backend": {
   "type": "custom",
-
   "candid": "backend/src/backend_backend/backend_backend.did",
   "build": "cd backend && cargo build --target wasm32-unknown-unknown --release",
 "wasm": "backend/target/wasm32-unknown-unknown/release/backend_backend.wasm"
- 
-
-    },
+ },
     "backend_frontend": {
       "type": "assets",
-      "source": ["uni_frontend/build"],
+      "source":["uni_frontend/build"],
       "dependencies": ["backend_backend"]
     }
   },
